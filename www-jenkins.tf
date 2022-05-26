@@ -65,7 +65,30 @@ resource "huaweicloud_compute_instance" "instance" {
   network {
     uuid = huaweicloud_vpc_subnet.subnet.id
   }
-  
+ 
+}
+
+resource "huaweicloud_vpc_eip" "eip" {
+  publicip {
+    type = "5_bgp"
+  }
+  bandwidth {
+    name        = format("band-%s", formatdate("YYYYMMDDhhmmss", timestamp()))
+    size        = 1
+    share_type  = "PER"
+    charge_mode = "traffic"
+  }
+}
+
+resource "huaweicloud_compute_eip_associate" "associated" {
+  depends_on = [huaweicloud_vpc_eip.eip,huaweicloud_compute_instance.instance]
+  public_ip   = huaweicloud_vpc_eip.eip.address
+  instance_id = huaweicloud_compute_instance.instance.id
+}
+
+resource "null_resource" "provision" {
+  depends_on = [huaweicloud_compute_eip_associate.associated]
+
     provisioner "file" {
     source      = "install-jenkins.sh"
     destination = "/tmp/install-jenkins.sh"
@@ -93,7 +116,7 @@ resource "huaweicloud_compute_instance" "instance" {
 
   connection {
     user        = "root"
-    host        = digitalocean_droplet.www-jenkins.ipv4_address
+    host        = huaweicloud_vpc_eip.eip.address
     type        = "ssh"
     private_key = file(var.pvt_key)
     timeout     = "2m"
@@ -106,24 +129,5 @@ resource "huaweicloud_compute_instance" "instance" {
       "/tmp/install-jenkins.sh",
           ]
   }
-  
-}
-
-resource "huaweicloud_vpc_eip" "eip" {
-  publicip {
-    type = "5_bgp"
-  }
-  bandwidth {
-    name        = format("band-%s", formatdate("YYYYMMDDhhmmss", timestamp()))
-    size        = 1
-    share_type  = "PER"
-    charge_mode = "traffic"
-  }
-}
-
-resource "huaweicloud_compute_eip_associate" "associated" {
-  depends_on = [huaweicloud_vpc_eip.eip,huaweicloud_compute_instance.instance]
-  public_ip   = huaweicloud_vpc_eip.eip.address
-  instance_id = huaweicloud_compute_instance.instance.id
 }
 
