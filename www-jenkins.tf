@@ -10,12 +10,12 @@ data "template_file" "default_nginx_test" {
 resource "huaweicloud_vpc" "vpc" {
   count      = 1
   cidr       = "172.16.0.0/16"
-  name       = "jenkins_vpc"
+  name       = "${var.template_name}_vpc"
 }
 
 resource "huaweicloud_vpc_subnet" "subnet" {
   vpc_id      = huaweicloud_vpc.vpc[0].id
-  name        = "jenkins_subnet"
+  name        = "${var.template_name}_subnet"
   cidr        = "172.16.10.0/24"
   gateway_ip  = "172.16.10.1"
   primary_dns = "100.125.1.250"
@@ -23,7 +23,7 @@ resource "huaweicloud_vpc_subnet" "subnet" {
 
 # Security Group Resource for Module
 resource "huaweicloud_networking_secgroup" "default" {
-  name   = "jenkins_sg"
+  name   = "${var.template_name}_sg"
 }
 
 # Security Group Rule Resource for Module
