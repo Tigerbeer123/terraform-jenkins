@@ -30,10 +30,14 @@ sudo apt install docker-ce docker-ce-cli containerd.io -y
 sudo systemctl enable docker
 
 echo "Install Jenkins"
-wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
-sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
-sudo apt update -y
-sudo apt install jenkins -y
+#wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+#sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+#sudo apt update -y
+#sudo apt install jenkins -y
+
+wget https://repo.huaweicloud.com/jenkins/debian-stable/jenkins_2.332.3_all.deb
+dpkg -i jenkins_2.332.3_all.deb
+
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw allow ssh
