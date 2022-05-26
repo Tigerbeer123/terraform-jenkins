@@ -5,48 +5,6 @@ data "template_file" "default_nginx_test" {
     domain = huaweicloud_vpc_eip.eip.address
   }
 }
-
-# create a new vpc
-resource "huaweicloud_vpc" "vpc" {
-  count      = 1
-  cidr       = "172.16.0.0/16"
-  name       = "${var.template_name}_vpc"
-}
-
-resource "huaweicloud_vpc_subnet" "subnet" {
-  vpc_id      = huaweicloud_vpc.vpc[0].id
-  name        = "${var.template_name}_subnet"
-  cidr        = "172.16.10.0/24"
-  gateway_ip  = "172.16.10.1"
-  primary_dns = "100.125.1.250"
-}
-
-# Security Group Resource for Module
-resource "huaweicloud_networking_secgroup" "default" {
-  name   = "${var.template_name}_sg"
-}
-
-# Security Group Rule Resource for Module
-# allow ping
-resource "huaweicloud_networking_secgroup_rule" "allow_ping" {
-  direction         = "ingress"
-  ethertype         = "IPv4"
-  protocol          = "icmp"
-  remote_ip_prefix  = "0.0.0.0/0"
-  security_group_id = huaweicloud_networking_secgroup.default.id
-}
-
-# allow all
-resource "huaweicloud_networking_secgroup_rule" "allow_all" {
-  direction         = "ingress"
-  ethertype         = "IPv4"
-  protocol          = "tcp"
-  port_range_min    = 1
-  port_range_max    = 65535
-  remote_ip_prefix  = "0.0.0.0/0"
-  security_group_id = huaweicloud_networking_secgroup.default.id
-}
-
 data "huaweicloud_availability_zones" "zones" {}
 data "huaweicloud_images_image" "default" {
   name        = "Ubuntu 18.04 server 64bit"
@@ -60,10 +18,10 @@ resource "huaweicloud_compute_instance" "instance" {
   system_disk_size = 40
   image_id           = data.huaweicloud_images_image.default.id
   flavor_name           = var.ecs_flavor
-  security_group_ids = [huaweicloud_networking_secgroup.default.id]
+  security_group_ids = ["db64e819-6a3a-4c1f-9cad-7e055ec6c0da"]
   availability_zone  = data.huaweicloud_availability_zones.zones.names[0]
   network {
-    uuid = huaweicloud_vpc_subnet.subnet.id
+    uuid = "1eb61a05-a313-46e6-8119-f72a715f8254"
   }
  
 }
