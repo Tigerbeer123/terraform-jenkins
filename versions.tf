@@ -1,12 +1,8 @@
-
 terraform {
-  required_version = ">= 0.13"
   required_providers {
-    digitalocean = {
-      source = "digitalocean/digitalocean"
-    }
-    template = {
-      source = "hashicorp/template"
+    huaweicloud = {
+      source = "local-registry/huaweicloud/huaweicloud"
+      version = ">= 1.34.1"
     }
   }
 }
