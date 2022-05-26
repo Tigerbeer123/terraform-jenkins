@@ -2,7 +2,7 @@ data "template_file" "default_nginx_test" {
   template = file("${path.module}/nginx.tpl")
 
   vars = {
-    domain = "test"
+    domain = huaweicloud_vpc_eip.eip.address
   }
 }
 
@@ -115,12 +115,10 @@ resource "null_resource" "provision" {
   }  
 
   connection {
-    user        = "root"
+    type     = "ssh"
+    user     = "root"
+    password = var.ecs_password
     host        = huaweicloud_vpc_eip.eip.address
-    type        = "ssh"
-    private_key = file(var.pvt_key)
-    timeout     = "2m"
-    agent       = false
   }
 
   provisioner "remote-exec" {
