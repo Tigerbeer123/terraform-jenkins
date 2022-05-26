@@ -1,6 +1,6 @@
 
 output "ip" {
-  value       = digitalocean_droplet.www-jenkins.ipv4_address
+  value       = huaweicloud_vpc_eip.eip.address
 }
 
 #output "file" {
