@@ -35,7 +35,7 @@ echo "Install Jenkins"
 #sudo apt update -y
 #sudo apt install jenkins -y
 
-wget https://repo.huaweicloud.com/jenkins/debian-stable/jenkins_2.332.3_all.deb
+wget https://repo.huaweicloud.com/jenkins/debian/jenkins_2.349_all.deb
 dpkg -i jenkins_2.332.3_all.deb
 
 sudo ufw default deny incoming
