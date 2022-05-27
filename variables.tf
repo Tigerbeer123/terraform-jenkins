@@ -6,7 +6,7 @@ variable "template_name" {
 
 variable "ecs_name" {
   description = "ecs name"
-  default = "jenkins-ecs"
+  default = "jenkins-ecs-618431"
   type        = string
 }
 
