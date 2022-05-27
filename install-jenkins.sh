@@ -38,10 +38,6 @@ echo "Install Jenkins"
 wget https://repo.huaweicloud.com/jenkins/debian/jenkins_2.349_all.deb
 dpkg -i jenkins_2.349_all.deb
 
-wget https://hwcloudcli.obs.cn-north-1.myhuaweicloud.com/cli/latest/hcloud_install.sh 
-sudo bash hcloud_install.sh -y
-
-
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw allow ssh
