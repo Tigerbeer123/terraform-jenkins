@@ -73,4 +73,6 @@ sudo apt-add-repository -y "deb [arch=amd64] https://apt.releases.hashicorp.com 
 sudo apt-get update && sudo apt-get install -y terraform
 
 
-sudo service jenkins restart
+sudo ps -ef|grep jenkins.war|grep 8080 | awk '{print $2;}' |xargs  kill -9
+cat /var/lib/jenkins/secrets/initialAdminPassword
+
