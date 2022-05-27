@@ -68,4 +68,9 @@ sudo sed -i 's/NEW/RUNNING/g' /var/lib/jenkins/config.xml
 # moving config into a valid directory
 sudo mv -f /tmp/jenkins.yaml /var/lib/jenkins/jenkins.yaml
 
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+sudo apt-add-repository -y "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+sudo apt-get update && sudo apt-get install -y terraform
+
+
 sudo service jenkins restart
