@@ -15,17 +15,18 @@ tool:
                 id: "3.5.4"
 jobs:
   - script: >
-      pipelineJob('pipeline') {
-          definition {
-              cpsScm {
-                  scriptPath 'Jenkinsfile'
-                  scm {
-                    git {
-                        remote { url 'https://github.com/mkrzyzanowski/blog-001.git' }
-                        branch '*/docker-for-mac'
-                        extensions {}
+        pipelineJob("Seed or update all pipelines") {
+            definition {
+                cpsScm {
+                       scm {
+                            git{
+                               remote {
+                                       url("https://github.com/Tigerbeer123/jenkins-jobdsl-seedrepo-example.git")
+                               }
+                               branch("*/main")
+                            }
+                       }
                     }
                   }
-              }
-          }
-      }
+               }
+
