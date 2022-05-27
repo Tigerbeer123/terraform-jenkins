@@ -1,5 +1,11 @@
 jenkins:
-  systemMessage: "jimangel.io demo: configured with JCasC plugin\n\n"
+  systemMessage: "Jenkins As Code Concept."
+  views:
+    - myView:
+        name: "Jobs Config as Code"
+security:
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: false
 tool:
   git:
     installations:
@@ -8,7 +14,7 @@ tool:
 
 jobs:
   - script: >
-        pipelineJob("Seed or update all pipelines") {
+        pipelineJob("JobsConfigasCode") {
             definition {
                 cpsScm {
                        scm {
@@ -22,4 +28,5 @@ jobs:
                     }
                   }
                }
+~                 
 
