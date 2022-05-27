@@ -5,14 +5,7 @@ tool:
     installations:
     - home: "git"
       name: "Default"
-  maven:
-    installations:
-    - name: "Maven 3"
-      properties:
-      - installSource:
-          installers:
-            - maven:
-                id: "3.5.4"
+
 jobs:
   - script: >
         pipelineJob("Seed or update all pipelines") {
