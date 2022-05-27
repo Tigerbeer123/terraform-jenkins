@@ -32,7 +32,7 @@ resource "huaweicloud_vpc_eip" "eip" {
   }
   bandwidth {
     name        = format("band-%s", formatdate("YYYYMMDDhhmmss", timestamp()))
-    size        = 1
+    size        = 10
     share_type  = "PER"
     charge_mode = "traffic"
   }
