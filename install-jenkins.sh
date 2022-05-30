@@ -60,7 +60,7 @@ sudo mkswap /swapfile
 sudo swapon /swapfile
 
 # install plugins
-sudo bash /tmp/install-plugins.sh configuration-as-code-support pipeline-maven blueocean workflow-aggregator
+sudo bash /tmp/install-plugins.sh configuration-as-code pipeline-maven blueocean workflow-aggregator
 
 # skip wizard
 sudo sed -i 's/NEW/RUNNING/g' /var/lib/jenkins/config.xml
